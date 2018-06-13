@@ -79,6 +79,47 @@ bool BattleBattle::init()
 		this->addChild(sprite, 0);
 	}
 
+	auto chuji = Sprite::create("./image/Battle/50.png");
+	
+	chuji->setPosition(visibleSize.width / 2, visibleSize.height/ 2);
+	chuji->setColor(Color3B(0,0,0));
+	chuji->setScale(1.2);
+	this->addChild(chuji, 11);
+
+	chuji->runAction(DelayTime::create(1.0f));
+
+	auto tintBy = TintTo::create(0.5f, 255.0f, 255.0f,255.0f);
+	auto tintBy2 = TintBy::create(0.5f, -255.0f, -255.0f, -255.0f);
+	auto sc = ScaleBy::create(0.3f, 1.3f);
+	auto chujiout = Spawn::create(Sequence::create(sc,sc->reverse(), nullptr), tintBy,nullptr);
+	chuji->runAction(Sequence::create(chujiout,FadeOut::create(1.0f),nullptr));
+
+	auto door1 = Sprite::create("./image/Battle/358.png");
+	auto door2 = Sprite::create("./image/Battle/355.png");
+
+	door1->setAnchorPoint(ccp(1, 0.5));
+	door2->setAnchorPoint(ccp(0, 0.5));
+
+	door1->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	door2->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+
+	door1->setScale(visibleSize.height / door1->getContentSize().height);
+	door2->setScale(visibleSize.height / door2->getContentSize().height);
+
+	door1->setOpacity(200);
+	door2->setOpacity(200);
+
+	this->addChild(door1, 10);
+	this->addChild(door2, 10);
+
+	auto delayhalf = DelayTime::create(0.5);
+
+	auto door1Move = MoveBy::create(1, Vec2(-visibleSize.width / 2, 0));
+	auto door2Move = MoveBy::create(1, Vec2(visibleSize.width / 2, 0));
+	
+	door1->runAction(Sequence::create(delayhalf,door1Move,nullptr) );
+	door2->runAction(Sequence::create(delayhalf->clone(), door2Move,nullptr));
+
 	auto playerShips = Node::create();
 	playerShips->setScale(1.8);
 
