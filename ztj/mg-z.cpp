@@ -25,7 +25,7 @@
 #include "BattleMain.h"
 #include "mugang.h"
 #include "SimpleAudioEngine.h"
-#include "ztj/jianzao.h"
+#include "jianzao.h"
 
 USING_NS_CC;
 
@@ -259,6 +259,11 @@ void MuGang::toChuJi(cocos2d::Ref * pSender)
 	auto cj = BattleMain::createScene();
 	Director::getInstance()->replaceScene(cj);
 }
+void MuGang::toJianZao(cocos2d::Ref * pSender)
+{
+	auto jz = JianZao::createScene();
+	Director::getInstance()->replaceScene(jz);
+}
 void MuGang::toText(cocos2d::Ref * pSender)
 {
 	auto scene2 = myText::createScene();
@@ -271,8 +276,4 @@ void MuGang::toMuGang(cocos2d::Ref * pSender)
 	Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene2, Color3B(0, 255, 255)));
 
 }
-void MuGang::toJianZao(cocos2d::Ref * pSender)
-{
-	auto jz = JianZao::createScene();
-	Director::getInstance()->replaceScene(jz);
-}
+

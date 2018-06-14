@@ -1,4 +1,3 @@
-#pragma once
 /****************************************************************************
 Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
@@ -23,38 +22,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __BATTLESELECT_SCENE_H__
-#define __BATTLESELECT_SCENE_H__
+#ifndef __CARDSHOW_SCENE_H__
+#define __CARDSHOW_SCENE_H__
 
 #include "cocos2d.h"
-#include"BattleMain.h"
 
-//extern short BattlePlace;
-#define SHIP1_POS 400, 1000
-#define SHIP2_POS 1200, 1000
-#define SHIP3_POS 2000, 1000
-#define SHIP4_POS 700, 400
-#define SHIP5_POS 1500, 400
-#define SHIP6_POS 2300, 400
-
-
-
-class BattleSelect : public cocos2d::Scene
+class CardShow : public cocos2d::Scene
 {
 public:
 	static cocos2d::Scene* createScene();
 
 	virtual bool init();
 
+	void totui(cocos2d::Ref* pSender);
+
 	// a selector callback
-	void menuCloseCallback(cocos2d::Ref* pSender);
-	void toText(cocos2d::Ref* pSender);
-	void selectOrder(cocos2d::Ref* pSender, cocos2d::Node *sixship,int i);
-	
-	static short order[6];
-	static short orderNum;
+
 	// implement the "static create()" method manually
-	CREATE_FUNC(BattleSelect);
+	CREATE_FUNC(CardShow);
 };
 
-#endif // __BATTLESELECT_SCENE_H__
+#endif // __HELLOWORLD_SCENE_H__
+#pragma once

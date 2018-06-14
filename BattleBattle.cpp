@@ -1,4 +1,5 @@
 #include "text.h"
+#include "Hp_Icon.h"
 #include"mugang.h"
 #include "Kanclass.h"
 #include "BattleBattle.h"
@@ -20,6 +21,9 @@ int playerShipsPos[6] = {
 	500,
 	600
 };
+int playerShipHPTag[6] = { 11,12,13,14,15,16 };
+int enemyShipHPTag[6] = { 21,22,23,24,25,26 };
+
 
 int playerShipsPosHeight=100;
 
@@ -164,9 +168,39 @@ bool BattleBattle::init()
 	this->addChild(enemyShips, 1);
 
 
+	
+
+	Hp_Icon *playerShipsHP[6];
+	ProgressTimer* tmp;
+	for (size_t i = 0; i < Chinjufu::fleetNum; i++)
+	{
+		playerShipsHP[i] = Hp_Icon::create();
+		playerShipsHP[i]->setPosition(playerShipOut[i]->getContentSize().width*1.8-12,(playerShipOut[i]->getPosition().y)*1.8-145);
+		tmp = (ProgressTimer*)playerShipsHP[i]->getChildByTag(HP_BAR);
+		tmp->setPercentage(100);
+		this->addChild(playerShipsHP[i], 0, playerShipHPTag[i]);
+
+
+	}
+	Hp_Icon *enemyShipsHP[6];
+	for (size_t i = 0; i < Chinjufu::fleetNum; i++)
+	{
+		enemyShipsHP[i] = Hp_Icon::create();
+		enemyShipsHP[i]->setPosition(visibleSize.width- enemyShipOut[i]->getContentSize().width*1.8 + 12, (enemyShipOut[i]->getPosition().y)*1.8 - 100);
+		tmp = (ProgressTimer*)enemyShipsHP[i]->getChildByTag(HP_BAR);
+		tmp->setPercentage(100);
+		this->addChild(enemyShipsHP[i], 0, enemyShipHPTag[i]);
+
+
+	}
 
 
 
+
+
+
+
+	this->scheduleUpdate();
 	return true;
 
 }
@@ -204,4 +238,22 @@ void BattleBattle::toMuGang(cocos2d::Ref * pSender)
 	auto scene2 = MuGang::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(0.5, scene2, Color3B(0, 255, 255)));
 
+}
+void BattleBattle::scheduleBlood(Node * shuaxin,float xueliang) {
+	auto progress = (ProgressTimer *)shuaxin->getChildByTag(HP_BAR);
+	progress->setPercentage(xueliang*100);  //这里是百分制显示
+	if (progress->getPercentage() < 0) {
+		cout << "scheduleBlooderror" << endl;
+	}
+}
+
+float BattleBattle::flag = 1;
+void BattleBattle::update(float dt)
+{
+	auto * text = (ProgressTimer *)this->getChildByTag(12);
+	//auto tc = (ProgressTimer *)text->getChildByTag(100);
+	float num = (flag++) / 1000;
+	scheduleBlood(text, num);
+	//ProgressTimer * progress = (ProgressTimer *)text->;
+	//text->setPercentage(50);  //这里是百分制显示
 }
